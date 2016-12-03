@@ -7,7 +7,11 @@ $(document).ready(function(){
 
     // Listeners
     $(document).click(function(e) {
-        socket.emit("update", getData(session_id, user_id));
+        var data = {"time": Date.now(), 
+                    "session_id": session_id,
+                    "user_id": user_id, 
+                    "drawing":null};
+        socket.emit("update", data);
     });
 
     socket.on("recieve", function(data) {

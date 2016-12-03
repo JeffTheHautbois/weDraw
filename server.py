@@ -12,7 +12,7 @@ socketio = SocketIO(app)
 def update(drawing):
     sketch.append(drawing)
     pprint(sketch)
-    emit("recieve", drawing)  # Send the updated sketch to client
+    socketio.emit("recieve", drawing)  # Send the updated sketch to client
 
 
 @socketio.on('join')
