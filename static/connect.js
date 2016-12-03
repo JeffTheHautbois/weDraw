@@ -77,7 +77,7 @@ function display(data) {
     ctx.closePath();
     ctx.strokeStyle = draw.lColor;
     ctx.stroke();
-    $("#" + data.user_id).css({"top": y1 + 180, "left": x1, "pointer-events": "none"});
+    $("#" + data.user_id).css({"top": y1 + 180, "left": x1, "pointer-events": "none", "visibility": "visible"});
 
 }
 
@@ -87,7 +87,7 @@ function clearArea() {
 }
 
 socket.on("new_user" + session_id.toString(), function(user_id) {
-    $("#show_user").append('<div style="position:absolute;top:100px;left:200px;" id=' + user_id + '>' + user_id + '</div>');
+    $("#show_user").append('<div style="position:absolute;visibility:hidden;" id=' + user_id + '>' + user_id + '</div>');
 });
 
 
