@@ -69,7 +69,7 @@ function display(data) {
     x1 = draw.x;
     y1 = draw.y;
 
-    $("#" + data.user_id).css({"top": y1 + 180, "left": x1, "pointer-events": "none", "visibility": "visible"});
+    $("#" + data.user_id).css({"top": y1 + 160, "left": x1, "pointer-events": "none", "visibility": "visible"});
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
