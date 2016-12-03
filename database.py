@@ -16,7 +16,7 @@ def get_db_formatted(data):
     print(data)
     db_formatted = (data["time"], data["session_id"], data["user_id"],
                     drawing["x"], drawing["y"], drawing["lastX"],
-                    drawing["lastY"],drawing["lWidth"],drawing["lColor"])
+                    drawing["lastY"], drawing["lWidth"], drawing["lColor"])
     return db_formatted
 
 
