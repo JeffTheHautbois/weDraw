@@ -6,6 +6,9 @@ socket.emit("join", "Trying to connect to server");
 var mousePressed = false;
 var lastX, lastY;
 var ctx;
+var lWidth;
+var lColor;
+
 
 function InitThis() {
     ctx = document.getElementById('myCanvas').getContext("2d");
@@ -31,7 +34,7 @@ function InitThis() {
 
 function Draw(x, y, isDown) {
     if (isDown) {
-        var drawing = {"x": x, "y": y, "lastX": lastX, "lastY": lastY};
+        var drawing = {"x": x, "y": y, "lastX": lastX, "lastY": lastY, "lWidth": lWidth, "lColor": lColor};
         var data = {"time": Date.now(), 
                     "session_id": session_id,
                     "user_id": user_id, 
@@ -48,9 +51,12 @@ socket.on("recieve", function(data) {
     y0 = draw.lastY;
     x1 = draw.x;
     y1 = draw.y;
+
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
+    ctx.lineWidth = lWidth;
+    ctx.strokeStyle = lColor;
     ctx.closePath();
     ctx.stroke();
 });
