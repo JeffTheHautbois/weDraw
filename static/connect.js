@@ -69,6 +69,7 @@ function display(data) {
     x1 = draw.x;
     y1 = draw.y;
 
+    $("#" + data.user_id).css({"top": y1 + 180, "left": x1, "pointer-events": "none", "visibility": "visible"});
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
@@ -77,8 +78,9 @@ function display(data) {
     ctx.closePath();
     ctx.strokeStyle = draw.lColor;
     ctx.stroke();
-    $("#" + data.user_id).css({"top": y1 + 180, "left": x1, "pointer-events": "none", "visibility": "visible"});
-
+    setTimeout(function(){
+        $("#" + data.user_id).css({"visibility": "hidden"});
+    }, 3000);
 }
 
 function clearArea() {
