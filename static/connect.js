@@ -1,13 +1,14 @@
 socket = io.connect('http://' + document.domain + ':' + location.port);
-var session_id = 0;
-var user_id = 0;
-socket.emit("join", "Trying to connect to server");
+var path = window.location.pathname
+var session_id = parseInt(path.split("/")[1]);
+var user_id = path.split("/")[2];
+socket.emit("join", {'session_id': session_id, 'user_id': user_id});
 
 var mousePressed = false;
 var lastX, lastY;
 var ctx;
-var lWidth;
-var lColor;
+var lWidth = '5';
+var lColor = 'black';
 
 
 socket.on("loadDrawing", function(data) {
