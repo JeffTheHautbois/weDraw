@@ -17,7 +17,8 @@ database.init()
 @socketio.on('update')
 def update(drawing):
     database.insert_drawing(drawing)
-    socketio.emit("recieve", drawing)  # Send the updated sketch to client
+    socketio.emit("recieve" + str(drawing["session_id"]),
+                  drawing)  # Send the updated sketch to client
 
 
 @socketio.on('join')
@@ -29,6 +30,7 @@ def connect_user(data):
 @socketio.on('clear')
 def clear(session_id):
     database.clear_drawing(session_id)
+    socketio.emit("externalclear" + str(session_id), session_id)
 
 
 @app.route('/<session_id>/<username>/draw')

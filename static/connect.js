@@ -54,8 +54,12 @@ function Draw(x, y, isDown) {
     lastX = x; lastY = y;
 }
 
-socket.on("recieve", function(data) {
+socket.on("recieve" + session_id.toString(), function(data) {
     display(data);
+});
+
+socket.on("externalclear" + session_id.toString(), function(data) {
+    clearArea();
 });
 
 function display(data) {
@@ -82,11 +86,10 @@ function clearArea() {
 
 $(document).ready(function() {
     $("#clear-button").click(function() {
-        clearArea();
         socket.emit("clear", session_id);
     });
     
     $("#color").spectrum({
-        color: "#f00",
+        color: "black",
     });
 });

@@ -17,13 +17,30 @@
 </head>
 
 <body onload="InitThis();" style="margin:0px;width:100%;height:100%;">
-    <button class="btn" id="clear-button"> Clear </button>
+    <nav class="indigo darken-2">
+        <div class="container nav-wrapper">
+            <a href="/" class="brand-logo center">WeDraw</a>
+        </div>
+    </nav>
 
-    <p class="range-field">
-      <input type="range" id="stroke" min=1 max=50 value=5 />
-    </p>
+    <div class="row">
 
-    <input type='text' id="color"/>
+        <div class="col s2">
+            <p class="range-field">
+            Stroke Width:
+            <input type="range" id="stroke" min=1 max=50 value=5 />
+            </p>
+        </div>
 
-    <canvas id="myCanvas" width=100% height=100% style="border:2px solid black">
+        <div class="col s4">
+            Color:
+            <input type='text' id="color"/>
+        </div>
+
+        <div class="col s4">
+            <button class="btn" id="clear-button"> Clear Screen </button>
+        </div>
+    </div>
+
+        <canvas id="myCanvas" style="border:2px solid black">
 </body>
