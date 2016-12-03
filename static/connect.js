@@ -3,22 +3,6 @@ var session_id = 0;
 var user_id = 0;
 socket.emit("join", "Trying to connect to server");
 
-socket.on("recieve", function(data) {
-    console.log(data);
-});
-// $(document).ready(function(){
-
-//     // $(document).click(function(e) {
-//     //     var data = {"time": Date.now(), 
-//     //                 "session_id": session_id,
-//     //                 "user_id": user_id, 
-//     //                 "drawing":null};
-//     //     socket.emit("update", data);
-//     // });
-
-// });
-
-
 var mousePressed = false;
 var lastX, lastY;
 var ctx;
@@ -52,19 +36,26 @@ function Draw(x, y, isDown) {
                     "session_id": session_id,
                     "user_id": user_id, 
                     "drawing":drawing};
-
         socket.emit("update", data);
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.closePath();
-        ctx.stroke();
     }
     lastX = x; lastY = y;
 }
 
+socket.on("recieve", function(data) {
+    console.log(data);
+    draw = data.drawing;
+    x0 = draw.lastX;
+    y0 = draw.lastY;
+    x1 = draw.x;
+    y1 = draw.y;
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.closePath();
+    ctx.stroke();
+});
+
 function clearArea() {
-    // Use the identity matrix while clearing the canvas
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
