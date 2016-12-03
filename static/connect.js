@@ -10,6 +10,12 @@ var lWidth;
 var lColor;
 
 
+socket.on("loadDrawing", function(data) {
+    for (i = 0; i< data.length; i++) {
+        display(data[i]);
+    }
+});
+
 function InitThis() {
     ctx = document.getElementById('myCanvas').getContext("2d");
 
@@ -45,6 +51,10 @@ function Draw(x, y, isDown) {
 }
 
 socket.on("recieve", function(data) {
+    display(data);
+});
+
+function display(data) {
     console.log(data);
     draw = data.drawing;
     x0 = draw.lastX;
@@ -59,7 +69,7 @@ socket.on("recieve", function(data) {
     ctx.strokeStyle = lColor;
     ctx.closePath();
     ctx.stroke();
-});
+}
 
 function clearArea() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
