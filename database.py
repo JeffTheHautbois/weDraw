@@ -42,6 +42,6 @@ def insert_drawing(data):
 
 def get_whole_drawing():
     output = []
-    for row in c.execute("SELECT * FROM sketch"):
+    for row in c.execute("SELECT * FROM sketch ORDER BY time"):
         output.append(get_json_formatted(row))
     return output
