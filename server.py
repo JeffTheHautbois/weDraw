@@ -1,16 +1,19 @@
 from flask import Flask
 from flask import render_template
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO
 from pprint import pprint
 
 app = Flask(__name__)
 socketio = SocketIO(app)
+
+data = []
 
 
 @socketio.on('update')
 def update(drawing):
     pprint(drawing)
     socketio.emit("recieve", drawing)  # Send the updated sketch to client
+    data.append(drawing)
 
 
 @socketio.on('join')
