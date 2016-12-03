@@ -10,8 +10,8 @@ import database
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-data = []
 database.init()
+connected_users = []
 
 
 @socketio.on('update')
@@ -25,6 +25,13 @@ def update(drawing):
 def connect_user(data):
     drawing = database.get_whole_drawing(data["session_id"])
     emit("loadDrawing", drawing)
+
+    for user in connected_users:
+        if user["session_id"] == data["session_id"]:
+            emit("new_user" + str(data["session_id"]), user["user_id"])
+
+    socketio.emit("new_user" + str(data["session_id"]), data["user_id"])
+    connected_users.append(data)
 
 
 @socketio.on('clear')

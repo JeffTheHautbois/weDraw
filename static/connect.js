@@ -77,12 +77,19 @@ function display(data) {
     ctx.closePath();
     ctx.strokeStyle = draw.lColor;
     ctx.stroke();
+    $("#" + data.user_id).css({"top": y1 + 180, "left": x1, "pointer-events": "none"});
+
 }
 
 function clearArea() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
+
+socket.on("new_user" + session_id.toString(), function(user_id) {
+    $("#show_user").append('<div style="position:absolute;top:100px;left:200px;" id=' + user_id + '>' + user_id + '</div>');
+});
+
 
 $(document).ready(function() {
     $("#clear-button").click(function() {
