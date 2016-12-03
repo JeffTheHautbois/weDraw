@@ -13,7 +13,6 @@ def init():
 
 def get_db_formatted(data):
     drawing = data["drawing"]
-    print(data)
     db_formatted = (data["time"], data["session_id"], data["user_id"],
                     drawing["x"], drawing["y"], drawing["lastX"],
                     drawing["lastY"], drawing["lWidth"], drawing["lColor"])
@@ -40,6 +39,11 @@ def get_json_formatted(data):
 def insert_drawing(data):
     db_formatted = get_db_formatted(data)
     c.execute('INSERT INTO sketch VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', db_formatted)
+    conn.commit()
+
+
+def clear_drawing(session_id):
+    c.execute("DELETE FROM sketch WHERE session_id=(?)", (session_id, ))
     conn.commit()
 
 

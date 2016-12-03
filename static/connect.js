@@ -7,9 +7,6 @@ socket.emit("join", {'session_id': session_id, 'user_id': user_id});
 var mousePressed = false;
 var lastX, lastY;
 var ctx;
-var lWidth = '5';
-var lColor = 'black';
-
 
 socket.on("loadDrawing", function(data) {
     for (i = 0; i< data.length; i++) {
@@ -44,6 +41,9 @@ function InitThis() {
 
 function Draw(x, y, isDown) {
     if (isDown) {
+
+        var lWidth = parseInt($("#stroke").val());
+        var lColor = $("#color").spectrum("get").toHexString();
         var drawing = {"x": x, "y": y, "lastX": lastX, "lastY": lastY, "lWidth": lWidth, "lColor": lColor};
         var data = {"time": Date.now(), 
                     "session_id": session_id,
@@ -59,7 +59,6 @@ socket.on("recieve", function(data) {
 });
 
 function display(data) {
-    console.log(data);
     draw = data.drawing;
     x0 = draw.lastX;
     y0 = draw.lastY;
@@ -69,9 +68,10 @@ function display(data) {
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
-    ctx.lineWidth = lWidth;
-    ctx.strokeStyle = lColor;
+    ctx.lineWidth = draw.lWidth;
+    ctx.lineJoin = "round";
     ctx.closePath();
+    ctx.strokeStyle = draw.lColor;
     ctx.stroke();
 }
 
@@ -79,3 +79,14 @@ function clearArea() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
+
+$(document).ready(function() {
+    $("#clear-button").click(function() {
+        clearArea();
+        socket.emit("clear", session_id);
+    });
+    
+    $("#color").spectrum({
+        color: "#f00",
+    });
+});
