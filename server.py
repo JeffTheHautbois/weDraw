@@ -26,6 +26,11 @@ def connect_user(data):
     emit("loadDrawing", drawing)
 
 
+@socketio.on('clear')
+def clear(session_id):
+    database.clear_drawing(session_id)
+
+
 @app.route('/<session_id>/<username>/draw')
 def draw(session_id, username):
     return render_template('draw.html')

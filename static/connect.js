@@ -79,3 +79,12 @@ function clearArea() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
+
+$(document).ready(function() {
+    $("#clear-button").click(function() {
+        clearArea();
+        socket.emit("clear", session_id);
+    });
+});
+
+

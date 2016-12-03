@@ -43,6 +43,11 @@ def insert_drawing(data):
     conn.commit()
 
 
+def clear_drawing(session_id):
+    c.execute("DELETE FROM sketch WHERE session_id=(?)", (session_id, ))
+    conn.commit()
+
+
 def get_whole_drawing(data):
     output = []
     for row in c.execute("SELECT * FROM sketch WHERE session_id=(?) ORDER BY time", (data,) ):
