@@ -13,7 +13,6 @@ def init():
 
 def get_db_formatted(data):
     drawing = data["drawing"]
-    print(data)
     db_formatted = (data["time"], data["session_id"], data["user_id"],
                     drawing["x"], drawing["y"], drawing["lastX"],
                     drawing["lastY"], drawing["lWidth"], drawing["lColor"])
