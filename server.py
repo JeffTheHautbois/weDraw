@@ -4,14 +4,12 @@ from flask_socketio import SocketIO, emit
 from pprint import pprint
 
 app = Flask(__name__)
-sketch = []
 socketio = SocketIO(app)
 
 
 @socketio.on('update')
 def update(drawing):
-    sketch.append(drawing)
-    pprint(sketch)
+    pprint(drawing)
     socketio.emit("recieve", drawing)  # Send the updated sketch to client
 
 
