@@ -14,6 +14,25 @@
 
     <script src='/static/colorselector/spectrum.js'></script>
     <link rel='stylesheet' href='/static/colorselector/spectrum.css' />
+    <style>
+      input[type=range]::-webkit-slider-thumb {
+        background-color: #303f9f;
+      }
+      input[type=range]::-moz-range-thumb {
+        background-color: #303f9f;
+      }
+      input[type=range]::-ms-thumb {
+        background-color: #303f9f;
+      }
+      input[type=range] + .thumb {
+        background-color: #303f9f;
+      }
+      input[type=range] + .thumb.active .value {
+        color: white;
+      }
+      </style>
+
+
 </head>
 
 <body onload="InitThis();" style="margin:0px;width:100%;height:100%;">
@@ -25,20 +44,20 @@
 
     <div class="row">
 
-        <div class="col s2">
-            <p class="range-field">
-            Stroke Width:
+        <div class="col s3">
+            <h5 class="indigo-text"> Stroke Width:</h5>
+            <p class="range-field ">
             <input type="range" id="stroke" min=1 max=50 value=5 />
             </p>
         </div>
 
-        <div class="col s2 offset-s2">
-            Color:<br>
+        <div class="col s1 offset-s1">
+            <h5 class="indigo-text">Color:<br></h5>
             <input type='text' id="color"/>
         </div>
 
-        <div class="col s4 offset-s8">
-            <button class="btn" id="clear-button"> Clear Screen </button>
+        <div class="col s4 ">
+            <button class="btn wave-effect waves-light indigo darken-2" id="clear-button"> Clear Screen </button>
         </div>
     </div>
 
