@@ -1,5 +1,5 @@
 socket = io.connect('http://' + document.domain + ':' + location.port);
-var path = window.location.pathname
+var path = window.location.pathname;
 var session_id = parseInt(path.split("/")[1]);
 var user_id = path.split("/")[2];
 socket.emit("join", {'session_id': session_id, 'user_id': user_id});
@@ -19,6 +19,9 @@ socket.on("loadDrawing", function(data) {
 
 function InitThis() {
     ctx = document.getElementById('myCanvas').getContext("2d");
+
+    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
 
     $('#myCanvas').mousedown(function (e) {
         mousePressed = true;
