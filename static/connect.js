@@ -89,8 +89,17 @@ function clearArea() {
 }
 
 socket.on("new_user" + session_id.toString(), function(user_id) {
-    $("#show_user").append('<div class="cursor" style="position:absolute;visibility:hidden;font-weight:bold;font-family: monospace;" id=' + 
-        user_id + '>' + user_id + '</div>');
+    var to_draw = true;
+    $(".cursor").each(function(index){
+        if (user_id === $(this).attr("id")){
+            to_draw = false;
+            return false;
+        }
+    });
+    if (to_draw){
+        $("#show_user").append('<div class="cursor" style="position:absolute;visibility:hidden;font-weight:bold;font-family: monospace;" id=' + 
+            user_id + '>' + user_id + '</div>');
+    }
 });
 
 
