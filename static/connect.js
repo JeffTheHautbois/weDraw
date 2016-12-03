@@ -69,7 +69,10 @@ function display(data) {
     x1 = draw.x;
     y1 = draw.y;
 
-    $("#" + data.user_id).css({"top": y1 + 160, "left": x1, "pointer-events": "none", "visibility": "visible"});
+    if (user_id !== data.user_id){
+        $("#" + data.user_id).css({"top": y1 + 160, "left": x1, "pointer-events": "none", "visibility": "visible"});
+        $("#" + data.user_id).attr("time", Date.now());
+    }
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
@@ -78,9 +81,6 @@ function display(data) {
     ctx.closePath();
     ctx.strokeStyle = draw.lColor;
     ctx.stroke();
-    setTimeout(function(){
-        $("#" + data.user_id).css({"visibility": "hidden"});
-    }, 3000);
 }
 
 function clearArea() {
@@ -89,7 +89,8 @@ function clearArea() {
 }
 
 socket.on("new_user" + session_id.toString(), function(user_id) {
-    $("#show_user").append('<div style="position:absolute;visibility:hidden;" id=' + user_id + '>' + user_id + '</div>');
+    $("#show_user").append('<div class="cursor" style="position:absolute;visibility:hidden;font-weight:bold;font-family: monospace;" id=' + 
+        user_id + '>' + user_id + '</div>');
 });
 
 
@@ -101,4 +102,17 @@ $(document).ready(function() {
     $("#color").spectrum({
         color: "black",
     });
+
+    setInterval(function(){
+        time = Date.now();
+        $(".cursor").each(function(index){
+            elem_time = parseInt($(this).attr("time"));
+            if (!isNaN(elem_time)) {
+                if (Math.abs(elem_time - Date.now()) >= 1000) {
+                    $(this).css({"visibility": "hidden"});
+                }
+            }
+        });
+    } , 500);
+ 
 });
