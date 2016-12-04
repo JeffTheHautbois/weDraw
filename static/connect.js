@@ -75,6 +75,8 @@ function display(data) {
         $("#" + data.user_id).css({"top": y1 + 160, "left": x1, "pointer-events": "none", "visibility": "visible"});
         $("#" + data.user_id).attr("time", Date.now());
     }
+
+    $("#" + data.user_id + ".tiny.material-icons").css({"color": draw.lColor});
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
@@ -101,6 +103,7 @@ socket.on("new_user" + session_id.toString(), function(user_id) {
     if (to_draw){
         $("#show_user").append('<div class="cursor" style="position:absolute;visibility:hidden;font-weight:bold;font-family: monospace;" id=' + 
             user_id + '>' + user_id + '</div>');
+        $(".userChip").append('<div class="chip"><i class="tiny material-icons" id=' + user_id +'>assignment_ind</i>'+ user_id + '</div>');
     }
 });
 
